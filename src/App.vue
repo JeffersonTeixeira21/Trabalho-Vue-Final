@@ -1,8 +1,10 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <div class="text-lg font-bold">Sistema Basico de cadastro </div>
-      <button @click="toggleMenu" class="md:hidden">
+    <nav class="bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-700 text-white p-4 flex justify-between items-center sticky top-0 z-50 rounded-b-xl">
+      <div class="flex items-center space-x-3">
+        <span class="text-xl font-extrabold tracking-wide drop-shadow">MeContrata.com</span>
+      </div>
+      <button @click="toggleMenu" class="md:hidden p-2 rounded hover:bg-gray-700 transition">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -12,20 +14,22 @@
       </button>
       <ul
         :class="{'block': menuOpen, 'hidden': !menuOpen}"
-        class="md:flex md:space-x-6 md:items-center md:block">
-        <li><router-link to="/" class="block py-2 md:py-0 hover:underline">Início</router-link></li>
-        <li><router-link to="/about" class="block py-2 md:py-0 hover:underline">Sobre</router-link></li>
-        <li><router-link to="/register" class="block py-2 md:py-0 hover:underline">Registrar-se</router-link></li>
+        class="md:flex md:space-x-6 md:items-center md:block bg-gray-800/90 md:bg-transparent absolute md:static left-0 right-0 top-16 md:top-0 p-4 md:p-0 rounded-b-xl md:rounded-none shadow-lg md:shadow-none border-b md:border-0 border-gray-700 z-40">
+        <li><router-link to="/" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Início</router-link></li>
         <li v-if="isAuthenticated">
-          <router-link to="/profile" class="block py-2 md:py-0 hover:underline">Perfil</router-link>
+          <router-link to="/about" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Currículo</router-link>
+        </li>
+        <li><router-link to="/register" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Registrar-se</router-link></li>
+        <li v-if="isAuthenticated">
+          <router-link to="/profile" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Perfil</router-link>
         </li>
         <li v-else>
-          <button @click="goToLogin" class="block py-2 md:py-0 hover:underline focus:outline-none bg-blue-700 px-4 rounded">
+          <button @click="goToLogin" class="block py-2 md:py-0 px-6 rounded-lg font-semibold bg-gradient-to-r from-gray-600 to-gray-800 shadow-md hover:from-gray-700 hover:to-gray-900 hover:scale-105 transition-all duration-200 focus:outline-none text-white">
             Login
           </button>
         </li>
         <li v-if="isAuthenticated">
-          <button @click="logout" class="block py-2 md:py-0 hover:underline focus:outline-none bg-red-600 px-4 rounded ml-2">
+          <button @click="logout" class="block py-2 md:py-0 px-6 rounded-lg font-semibold bg-gradient-to-r from-red-500 to-red-700 shadow-md hover:from-red-600 hover:to-red-800 hover:scale-105 transition-all duration-200 focus:outline-none text-white ml-2">
             Sair
           </button>
         </li>
@@ -37,7 +41,7 @@
     </main>
 
     <footer class="bg-gray-100 text-center py-4 text-gray-600">
-      &copy; 2025 Sistema Básico de Cadastro. Todos os direitos reservados.
+      &copy; 2025 Sistema Básico de Criação de Currículos. Todos os direitos reservados.
     </footer>
   </div>
 </template>
