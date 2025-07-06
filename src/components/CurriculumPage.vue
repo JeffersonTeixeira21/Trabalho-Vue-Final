@@ -91,6 +91,7 @@
             <button @click="viewCV(cv)" class="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-800 transition">Visualizar</button>
             <button @click="editCV(idx)" class="px-3 py-1 rounded bg-yellow-500 text-white hover:bg-yellow-700 transition">Editar</button>
             <button @click="deleteCV(cv._id, idx)" class="px-3 py-1 rounded bg-red-600 text-white hover:bg-red-800 transition">Excluir</button>
+            <button @click="exportCVToPDF(cv)" class="px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-800 transition">Exportar PDF</button>
           </div>
         </li>
       </ul>
@@ -128,6 +129,8 @@
 
 <script>
 import axios from 'axios';
+import jsPDF from 'jspdf';
+
 export default {
   data() {
     return {
@@ -188,7 +191,7 @@ export default {
         } else {
           // Editar currículo
           const id = this.curriculos[this.editIndex]._id;
-          const res = await axios.put(`http://localhost:5000/api/curriculos/${id}`, this.form, {
+          await axios.put(`http://localhost:5000/api/curriculos/${id}`, this.form, {
             headers: { Authorization: `Bearer ${token}` }
           });
         }
@@ -263,6 +266,42 @@ export default {
         links: '',
       };
       this.emailError = false;
+    },
+    exportCVToPDF(cv) {
+      const doc = new jsPDF();
+      let y = 10;
+      doc.setFontSize(16);
+      doc.text(`Currículo: ${cv.nome || ''}`, 10, y);
+      y += 10;
+      doc.setFontSize(12);
+      doc.text(`E-mail: ${cv.email || ''}`, 10, y);
+      y += 8;
+      doc.text(`Telefone: ${cv.telefone || ''}`, 10, y);
+      y += 8;
+      doc.text(`Endereço: ${cv.endereco || ''}`, 10, y);
+      y += 8;
+      doc.text(`Resumo: ${cv.resumo || ''}`, 10, y);
+      y += 10;
+      doc.text('Experiências:', 10, y);
+      y += 6;
+      (cv.experiencias || []).forEach(exp => {
+        if (y > 270) { doc.addPage(); y = 10; }
+        doc.text(`- ${exp}`, 14, y);
+        y += 6;
+      });
+      y += 2;
+      doc.text('Formações:', 10, y);
+      y += 6;
+      (cv.formacoes || []).forEach(formacao => {
+        if (y > 270) { doc.addPage(); y = 10; }
+        doc.text(`- ${formacao}`, 14, y);
+        y += 6;
+      });
+      y += 2;
+      doc.text(`Habilidades: ${cv.habilidades || ''}`, 10, y);
+      y += 8;
+      doc.text(`Links: ${cv.links || ''}`, 10, y);
+      doc.save(`curriculo_${cv.nome || 'export'}.pdf`);
     },
   },
 };

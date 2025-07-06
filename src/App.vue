@@ -17,7 +17,7 @@
         class="md:flex md:space-x-6 md:items-center md:block bg-gray-800/90 md:bg-transparent absolute md:static left-0 right-0 top-16 md:top-0 p-4 md:p-0 rounded-b-xl md:rounded-none shadow-lg md:shadow-none border-b md:border-0 border-gray-700 z-40">
         <li><router-link to="/" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Início</router-link></li>
         <li v-if="isAuthenticated">
-          <router-link to="/about" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Currículo</router-link>
+          <router-link to="/curriculum" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Currículo</router-link>
         </li>
         <li><router-link to="/register" class="block py-2 md:py-0 px-3 rounded hover:bg-gray-700 hover:text-white transition font-medium">Registrar-se</router-link></li>
         <li v-if="isAuthenticated">

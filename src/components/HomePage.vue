@@ -26,7 +26,7 @@
           Registrar-se
         </router-link>
         <router-link
-          to="/about"
+          to="/curriculum"
           v-if="isAuthenticated"
           class="block w-full py-3 rounded-lg bg-gray-700 text-white text-lg font-semibold text-center shadow hover:bg-gray-800 transition"
         >
