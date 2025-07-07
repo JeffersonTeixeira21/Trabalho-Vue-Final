@@ -4,7 +4,6 @@
       Criar Currículo
     </button>
 
-    <!-- Modal de Currículo -->
     <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 relative animate-fade-in max-h-screen overflow-y-auto">
         <button @click="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl font-bold">&times;</button>
@@ -78,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Lista de Currículos -->
     <div class="mt-10">
       <h3 class="text-xl font-bold mb-4 text-gray-800">Meus Currículos</h3>
       <ul v-if="curriculos.length" class="space-y-4">
@@ -98,7 +96,6 @@
       <div v-else class="text-gray-500">Nenhum currículo cadastrado ainda.</div>
     </div>
 
-    <!-- Modal de Visualização -->
     <div v-if="showViewModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div class="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 relative animate-fade-in">
         <button @click="showViewModal = false" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-2xl font-bold">&times;</button>
@@ -169,7 +166,7 @@ export default {
     async fetchCVs() {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/curriculos', {
+        const res = await axios.get('/curriculos', {
           headers: { Authorization: `Bearer ${token}` }
         });
         this.curriculos = res.data;
@@ -184,14 +181,14 @@ export default {
         const token = localStorage.getItem('token');
         if (this.editIndex === null) {
           // Novo currículo
-          const res = await axios.post('http://localhost:5000/api/curriculos', this.form, {
+          const res = await axios.post('/curriculos', this.form, {
             headers: { Authorization: `Bearer ${token}` }
           });
           this.curriculos.push(res.data);
         } else {
           // Editar currículo
           const id = this.curriculos[this.editIndex]._id;
-          await axios.put(`http://localhost:5000/api/curriculos/${id}`, this.form, {
+          await axios.put(`/curriculos/${id}`, this.form, {
             headers: { Authorization: `Bearer ${token}` }
           });
         }
@@ -217,7 +214,7 @@ export default {
       if (!confirm('Tem certeza que deseja excluir este currículo?')) return;
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/curriculos/${id}`, {
+        await axios.delete(`/curriculos/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         this.curriculos.splice(idx, 1);

@@ -10,7 +10,7 @@
       <h1 class="text-4xl font-extrabold mb-6 text-gray-700">
         {{ isAuthenticated ? `Bem-vindo de Volta` : 'Bem-vindo ao MeContrata.com' }}
       </h1>
-      <p class="mb-10 text-lg text-gray-700">Use o menu para navegar pelas páginas.</p>
+      <p class="mb-10 text-lg text-gray-700">Use o <strong>menu</strong> para navegar pelas páginas.</p>
       <div class="flex flex-col gap-4 w-full max-w-xs">
         <router-link
           to="/login"
