@@ -9,19 +9,19 @@
       }
     },
     {
-      "src": "server/index.js",
+      "src": "sever/server.js", 
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server/index.js"
+      "dest": "sever/server.js"
     },
     {
       "src": "/(.*)",
       "dest": "/dist/$1"
     }
   ],
-  "installCommand": "npm install && npm install --prefix server"
+  "installCommand": "npm install && npm install --prefix sever" 
 }
